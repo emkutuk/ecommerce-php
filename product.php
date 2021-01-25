@@ -7,18 +7,13 @@ include("partials/head.php");
 <?php
 include("partials/header.php");
 include("partials/cart.php");
-include("partials/slider.php");
-include("partials/banner.php");
 ?>
-	<!-- Product -->
-	<section class="bg0 p-t-23 p-b-140">
-		<div class="container">
-			<div class="p-b-10">
-				<h3 class="ltext-103 cl5">
-					Product Overview
-				</h3>
-			</div>
 
+<br>
+<br>
+	<!-- Product -->
+	<div class="bg0 m-t-23 p-b-140">
+		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
@@ -782,10 +777,11 @@ include("partials/banner.php");
 				</a>
 			</div>
 		</div>
-	</section>
+	</div>
+		
 
-	<?php 
-	include("partials/footer.php");
-	?>
+    <?php 
+    include("partials/footer.php");
+    ?>
 </body>
 </html>

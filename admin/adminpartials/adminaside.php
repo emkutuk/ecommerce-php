@@ -14,15 +14,20 @@
     </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">MAIN NAVIGATION</li>
+      <li class="header">MENU</li>
+      <li>
+        <a href="adminindex.php">
+          <span>Home</span>
+        </a>
+      </li>
       <li>
         <a href="categories.php">
           <span>Add Category</span>
         </a>
       </li>
       <li>
-        <a href="products.php">
-          <span>Add Product</span>
+        <a href="productsshow.php">
+          <span>Products</span>
         </a>
       </li>
       <li>

@@ -46,10 +46,6 @@ include("adminpartials/adminhead.php");
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-    <?php
-    include("adminpartials/adminfooter.php");
-    ?>
 </body>
 
 </html>

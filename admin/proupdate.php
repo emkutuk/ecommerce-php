@@ -25,28 +25,37 @@ include("adminpartials/adminhead.php");
                 </ol>
             </section>
             <div class="col-sm-3"></div>
-            <form role="form" action="producthandler.php" method="post" enctype="multipart/form-data">
+            <form role="form" action="proupdatehandler.php" method="POST" enctype="multipart/form-data">
+            <?php 
+            $newid=$_GET['up_id'];
+            include("../partials/connect.php");
+
+            $sql="SELECT * FROM products WHERE id = '$newid'";
+
+            $results=$connect->query($sql);
+            $final=$results->fetch_assoc();
+
+            ?>
                 <div class=" col-sm-6">
                     <div class="box-body">
                         <div class="form-group">
                             <h1>Add a Product</h1>
                             <label for="productName">Name</label>
-                            <input type="text" class="form-control" id="productName" placeholder="Enter product name" name="productName">
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name" name="productName" value="<?php echo $final['name'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="productPrice">Price</label>
-                            <input type="text" class="form-control" id="productPrice" placeholder="Enter product price" name="productPrice">
+                            <input type="text" class="form-control" id="productPrice" placeholder="Enter product price" name="productPrice" value="<?php echo $final['price'] ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="productImage">Image</label>
-                            <input type="file" id="productImage" name="productImage">
+                            <input type="file" id="productImage" name="productImage" value="<?php echo $final['picture'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="productCategory">Category</label>
-                            <select id="productCategory" name="productCategory">
+                            <select id="productCategory" name="productCategory" value="<?php echo $final['category'] ?>">
                                 <?php
-                                include("../partials/connect.php");
                                 $cat="SELECT * FROM categories";
                                 $results=mysqli_query($connect,$cat);
 
@@ -60,13 +69,14 @@ include("adminpartials/adminhead.php");
                         </div>
                             <div class="form-group">
                                 <label for="productDescription">Description</label>
-                                <textarea id="productDescription" class="form-control" rows="10" placeholder="Enter product description" name="productDescription"></textarea>
+                                <textarea id="productDescription" class="form-control" rows="10" placeholder="Enter product description" name="productDescription"><?php echo $final['description'] ?></textarea>
                             </div>
                         </div>
 
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="hidden" value="<?php echo $final['id']?>" name="form_id">      
+                        <button type="submit" class="btn btn-primary" name="update">Update</button>
                     </div>
                 </div>
             </form>

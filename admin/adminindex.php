@@ -26,17 +26,22 @@ include("adminpartials/adminhead.php");
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
           <li class="active">Dashboard</li>
         </ol>
+        <br>
+        <br>
+        <a href="products.php">
+          <button>Add A Product</button>
+          </a>
+          <hr>
+          <a href="categories.php">
+          <button>Add A Category</button>
+          </a>
+          <hr>
       </section>
-      <h1>Hello</h1>
 
       </section>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-    <?php
-    include("adminpartials/adminfooter.php");
-    ?>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-include("../partials/connect.php");
+require "../partials/connect.php";
 
 $email=$_POST['email'];
 $password=$_POST['password'];
@@ -20,6 +20,7 @@ else if(UserExists())
 }
 else if($password==$password2)
 {
+    //Encrypts password
     $passwordHash=password_hash($password,PASSWORD_DEFAULT);
     $sql="INSERT INTO customers(username,password) VALUES('$email','$passwordHash')";
     $connect->query($sql);
@@ -32,21 +33,27 @@ else
 
 function UserExists()
 {
-    include("../partials/connect.php");
+    require "../partials/connect.php";
     $email=$_POST['email'];
 
     $sql = "SELECT username FROM customers WHERE username='$email'";
-
-    $results = $connect->query($sql);
-    $final=$results->fetch_assoc();
-
-    if($final == 0)
+    try
     {
-        return false;
+        $results = $connect->query($sql);
+        $final=$results->fetch_assoc();
+        
+        if($final == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-    else
+    catch(Exception $e)
     {
-        return true;
+        echo $e->getMessage();
     }
 }
 
@@ -54,5 +61,4 @@ function DisplayMessage($msg)
 {
     echo "<script> alert('$msg'); window.location.href='../customerforms.php'; </script>";
 }
-
 ?>

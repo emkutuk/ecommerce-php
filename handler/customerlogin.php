@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (isset($_POST['login'])) 
 {
-  include("../partials/connect.php");
+  require "../partials/connect.php";
 
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -14,7 +14,8 @@ if (isset($_POST['login']))
 
   $results = $connect->query($sql);
   $final = $results->fetch_assoc();
-
+  
+  //Verifies username and encrypted password
   if($email == $final['username'] && password_verify($password, $final['password'])) 
   {
     $_SESSION['email'] = $final['username'];

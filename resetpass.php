@@ -4,7 +4,6 @@ require 'partials/connect.php';
 include 'partials/header.php';
 include 'partials/head.php';
 ?>
-<!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
     <h2 class="ltext-105 cl2 txt-center">
         Password Reset
@@ -18,12 +17,20 @@ include 'partials/head.php';
                 <form action="handler/passwordhandler.php" method="POST">
                     <h4 class="mtext-105 cl2 txt-center p-b-30">
                         Welcome <b><?php
-                        $token = $_GET['token'];
-                        $sql="SELECT * FROM tokens WHERE token='$token'";
-                        $results=$connect->query($sql);
-                        $final=$results->fetch_assoc();
+                        try
+                        {
+                            //I fetch email by using token to display it as welcome 'username'
+                            $token = $_GET['token'];
+                            $sql="SELECT * FROM tokens WHERE token='$token'";
+                            $results=$connect->query($sql);
+                            $final=$results->fetch_assoc();
                         
-                        echo $final['username'];
+                            echo $final['username'];
+                        }
+                        catch(Exception $e)
+                        {
+                            echo $e->getMessage();
+                        }
                         ?></b>
                     </h4>
 
@@ -42,8 +49,6 @@ include 'partials/head.php';
         </div>
     </div>
 </section>
-
-
 <?php
 include 'partials/footer.php';
 include 'partials/scripts.php';

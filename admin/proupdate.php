@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html>
 <?php
-include("adminpartials/session.php");
-include("adminpartials/adminhead.php");
+include "adminpartials/session.php";
+include "adminpartials/adminhead.php";
 ?>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <?php
-        include("adminpartials/adminheader.php");
-        include("adminpartials/adminaside.php");
+        include "adminpartials/adminheader.php";
+        include "adminpartials/adminaside.php";
         ?>
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
                     Dashboard
                     <small>Control panel</small>
                 </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
-                </ol>
             </section>
             <div class="col-sm-3"></div>
-            <form role="form" action="proupdatehandler.php" method="POST" enctype="multipart/form-data">
+            <form role="form" action="handler/proupdatehandler.php" method="POST" enctype="multipart/form-data">
             <?php 
             $newid=$_GET['up_id'];
-            include("../partials/connect.php");
+            require "../partials/connect.php";
+            //I get product data here to list already existed data on UPDATE page
+            try
+            {
+                $sql="SELECT * FROM products WHERE id = '$newid'";
 
-            $sql="SELECT * FROM products WHERE id = '$newid'";
-
-            $results=$connect->query($sql);
-            $final=$results->fetch_assoc();
-
+                $results=$connect->query($sql);
+                $final=$results->fetch_assoc();    
+            }
+            catch(Exception $e)
+            {
+                echo $e->getMessage();
+            }
             ?>
                 <div class=" col-sm-6">
                     <div class="box-body">
@@ -56,9 +56,15 @@ include("adminpartials/adminhead.php");
                             <label for="productCategory">Category</label>
                             <select id="productCategory" name="productCategory" value="<?php echo $final['category'] ?>">
                                 <?php
-                                $cat="SELECT * FROM categories";
-                                $results=mysqli_query($connect,$cat);
-
+                                try
+                                {
+                                    $cat="SELECT * FROM categories";
+                                    $results=mysqli_query($connect,$cat);
+                                }
+                                catch(Exception $e)
+                                {
+                                    echo $e->getMessage();
+                                }
                                 while($row=mysqli_fetch_assoc($results))
                                 {
                                     echo "<option value=".$row['id'].">".$row['name']."</option>";                                            
@@ -72,8 +78,6 @@ include("adminpartials/adminhead.php");
                                 <textarea id="productDescription" class="form-control" rows="10" placeholder="Enter product description" name="productDescription"><?php echo $final['description'] ?></textarea>
                             </div>
                         </div>
-
-                    <!-- /.box-body -->
                     <div class="box-footer">
                         <input type="hidden" value="<?php echo $final['id']?>" name="form_id">      
                         <button type="submit" class="btn btn-primary" name="update">Update</button>
@@ -82,9 +86,7 @@ include("adminpartials/adminhead.php");
             </form>
             <div class="col-sm-3"></div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
 </body>
 
 </html>

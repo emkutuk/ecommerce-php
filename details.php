@@ -14,11 +14,17 @@ include("partials/head.php");
 		<div class="container">
 			<div class="row">
 				<?php
-				$id = 30;
-				include("partials/connect.php");
-				$sql = "SELECT * FROM products WHERE id='$id'";
-				$results = $connect->query($sql);
-				$final = $results->fetch_assoc();
+				require "partials/connect.php";
+				try{
+					//Due to website listing only one item, here I limit query to fetch only 1 row. That one product can be removed, updated or added again via Admin Panel
+					$sql = "SELECT * FROM products LIMIT 1";
+					$results = $connect->query($sql);
+					$final = $results->fetch_assoc();
+				}
+				catch(Exception $e)
+				{
+					echo $e->getMessage();
+				}
 				?>
 				<div class="col-md-6 col-lg-7 p-b-30">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -54,15 +60,21 @@ include("partials/head.php");
 						</p>
 						<p class="stext-102 cl3 p-t-23">
 							Category: <?php 
-							include("partials/connect.php");
+							require "partials/connect.php";
+							try
+							{
+								//Categoies table and products table are connected to each other via category id(Foreign Key)
+								$category_id = $final['category_id'];		
+								$catsql="SELECT * FROM categories WHERE categories.id='$category_id'";
+								$catresults = $connect->query($catsql);
+								$category = $catresults->fetch_assoc();
 
-							$category_id = $final['category_id'];		
-
-							$catsql="SELECT * FROM categories WHERE categories.id='$category_id'";
-							$catresults = $connect->query($catsql);
-							$category = $catresults->fetch_assoc();
-
-							echo $category['name'];
+								echo $category['name'];
+							}
+							catch(Exception $e)
+							{
+								echo $e->getMessage();
+							}
 							?>
 						</p>
 						<div class="flex-w flex-r-m p-b-10">
@@ -77,10 +89,8 @@ include("partials/head.php");
 		</div>
 	</section>
 	<?php
-	include("partials/footer.php");
-	include("partials/scripts.php");
+		include("partials/footer.php");
+		include("partials/scripts.php");
 	?>
-
 </body>
-
 </html>

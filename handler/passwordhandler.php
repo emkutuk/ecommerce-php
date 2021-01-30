@@ -24,6 +24,7 @@ if(isset($_POST['reset']))
         $mail = new PHPMailer();
         $mail->isSMTP();
 
+        //Debug is off due to security reasons
         $mail->SMTPDebug = 0;
         $mail->Host = 'smtp.gmail.com';
         // use
@@ -34,10 +35,12 @@ if(isset($_POST['reset']))
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->SMTPAuth = true;
 
+        //Gmail mail credentials
         $mail->Username = 'info.644851inholland@gmail.com';
         $mail->Password = 'emreemre';
         $mail->setFrom('info.644851inholland@gmail.com', 'Emre Kutuk');
 
+        //User and mail details
         $mail->addAddress($email);
         $mail->Subject = 'Password Reset Request';
         $mail->Body    = "Please click <a href=".$link.">here</a> to reset your password.";
@@ -64,10 +67,12 @@ if(isset($_POST['approvepassword']))
     {
         try
         {
+            //Updates password
             $passwordHash=password_hash($password,PASSWORD_DEFAULT);
             $sql="UPDATE customers SET password='$passwordHash' WHERE username='$email'";
             mysqli_query($connect,$sql);
 
+            //Deletes the token from database
             $sql="DELETE FROM tokens WHERE username='$email'";
             mysqli_query($connect,$sql);
             
@@ -75,7 +80,7 @@ if(isset($_POST['approvepassword']))
         }
         catch(Exception $e)
         {
-            echo "<script> alert('There has been an error.'.$e) </script>";
+            echo $e->getMessage();
         }
         
     }
@@ -93,21 +98,28 @@ function DisplayMessage($msg)
 
 function UserExists()
 {
-    include("../partials/connect.php");
+    require "../partials/connect.php";
     $email=$_POST['email'];
 
     $sql = "SELECT username FROM customers WHERE username='$email'";
 
-    $results = $connect->query($sql);
-    $final=$results->fetch_assoc();
+    try
+    {
+        $results = $connect->query($sql);
+        $final=$results->fetch_assoc();
 
-    if($final == 0)
-    {
-        return false;
+        if($final == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-    else
+    catch(Exception $e)
     {
-        return true;
+        echo $e->getMessage();
     }
 }
 ?>

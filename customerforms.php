@@ -68,6 +68,7 @@ include("partials/header.php");
 						if (session_status() == PHP_SESSION_NONE) {
 							session_start();
 						}
+						//It creates captcha code from chars array randomly and dynamically and saves it to the session to be verified
 						  $chars = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'];
 						  $length = 5;
 						  $captcha_code = '';
@@ -96,7 +97,6 @@ include("partials/header.php");
 	<?php 
 	include("partials/footer.php");
 	include("partials/scripts.php");
-	include("partials/captcha.php");
 	?>
 
 </body>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-include("partials/head.php");
+include "partials/head.php";
 ?>
 <body class="animsition">
 <?php 
-include("partials/header.php");
+include "partials/header.php";
 ?>
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
@@ -95,8 +95,8 @@ include("partials/header.php");
 	</section>	
 	
 	<?php 
-	include("partials/footer.php");
-	include("partials/scripts.php");
+	include "partials/footer.php";
+	include "partials/scripts.php";
 	?>
 
 </body>

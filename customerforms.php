@@ -33,7 +33,11 @@ include("partials/header.php");
 						<div class="bor8 m-b-30">
 							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="password">
 						</div>
-
+						<div class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
+						<a href="forgotpass.php" style="color:black;">
+							Forgot my password
+						</a>
+						</div>
 						<button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" name="login">
 							Log in
 						</button>

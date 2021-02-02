@@ -28,7 +28,7 @@ include "adminpartials/adminhead.php";
             {
                 $sql="SELECT * FROM products WHERE id = '$newid'";
 
-                $results=$connect->query($sql);
+                $results=mysqli_query($connect, $sql);
                 $final=$results->fetch_assoc();    
             }
             catch(Exception $e)

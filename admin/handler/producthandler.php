@@ -16,10 +16,17 @@ if(isset($_POST['addproduct']))
 
     move_uploaded_file($file_tmp, $file_store);
 
+    $productInfo = [$productName, $productPrice, $productDescription, $productCategory];
+
+    foreach($productInfo as $info)
+    {
+        $info = mysqli_real_escape_string($connect, $info);
+    }
+
     try
     {
         $sql="INSERT INTO products(name,price,picture,description,category_id) VALUES ('$productName', '$productPrice', '$file_path', '$productDescription', '$productCategory')";
-        $connect->query($sql);
+        mysqli_query($connect, $sql);
 
         header('location: ../productsshow.php');
     }

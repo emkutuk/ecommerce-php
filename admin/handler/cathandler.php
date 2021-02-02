@@ -8,8 +8,9 @@ if(isset($_POST['categoryadd']))
 
     try
     {
+        $category = mysqli_real_escape_string($connect, $category);
         $sql="INSERT INTO categories(name) VALUES ('$category')";
-        $connect->query($sql);
+        mysqli_query($connect, $sql);
 
         header('location: ../productsshow.php');
     }

@@ -22,8 +22,10 @@ else if($password==$password2)
 {
     //Encrypts password
     $passwordHash=password_hash($password,PASSWORD_DEFAULT);
+    $passwordHash = mysqli_real_escape_string($connect, $passwordHash);
+    $email = mysqli_real_escape_string($connect, $email);
     $sql="INSERT INTO customers(username,password) VALUES('$email','$passwordHash')";
-    $connect->query($sql);
+    mysqli_query($connect, $sql);
     DisplayMessage('Registration has been successful!');
 }
 else
@@ -35,11 +37,11 @@ function UserExists()
 {
     require "../partials/connect.php";
     $email=$_POST['email'];
-
+    $email = mysqli_real_escape_string($connect, $email);
     $sql = "SELECT username FROM customers WHERE username='$email'";
     try
     {
-        $results = $connect->query($sql);
+        $results = mysqli_query($connect, $sql);
         $final=$results->fetch_assoc();
         
         if($final == 0)

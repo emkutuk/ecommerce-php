@@ -10,9 +10,10 @@ if (isset($_POST['login']))
   $email = $_POST['email'];
   $password = $_POST['password'];
 
+  $email = mysqli_real_escape_string($connect, $email);
   $sql = "SELECT * FROM customers WHERE username='$email'";
 
-  $results = $connect->query($sql);
+  $results = mysqli_query($connect, $sql);
   $final = $results->fetch_assoc();
   
   //Verifies username and encrypted password

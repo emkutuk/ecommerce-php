@@ -10,11 +10,15 @@ if (isset($_POST['adminlogin']))
     //During this part I do not encrypt password because admin accounts are registered manually by me
     $email = $_POST['adminemail'];
     $password = $_POST['adminpassword'];
+
+    $email = mysqli_real_escape_string($connect, $email);
+    $password  = mysqli_real_escape_string($connect, $password);
+
     $sql = "SELECT * FROM admins WHERE username='$email' AND password='$password'";
 
     try
     {
-        $results = $connect->query($sql);
+        $results = mysqli_query($connect, $sql);
         $final = $results->fetch_assoc();
     }
     catch(Exception $e)

@@ -28,7 +28,7 @@ include "adminpartials/adminhead.php";
             try
             {
                 $sql = "SELECT * FROM products WHERE id='$id'";
-                $results = $connect->query($sql);
+                $results = mysqli_query($connect, $sql);
 
                 $final = $results->fetch_assoc();
             }

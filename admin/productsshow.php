@@ -26,7 +26,7 @@ include "adminpartials/adminhead.php";
             try
             {
                 $sql="SELECT * FROM products";
-                $results=$connect->query($sql);
+                $results=mysqli_query($connect, $sql);
             }
             catch(Exception $e)
             {

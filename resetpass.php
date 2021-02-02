@@ -22,7 +22,7 @@ include 'partials/head.php';
                             //I fetch email by using token to display it as welcome 'username'
                             $token = $_GET['token'];
                             $sql="SELECT * FROM tokens WHERE token='$token'";
-                            $results=$connect->query($sql);
+                            $results=mysqli_query($connect, $sql);
                             $final=$results->fetch_assoc();
                         
                             echo $final['username'];

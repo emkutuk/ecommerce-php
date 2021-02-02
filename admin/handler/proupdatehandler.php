@@ -17,6 +17,13 @@ if(isset($_POST['update']))
 
     move_uploaded_file($file_tmp, $file_store);
 
+    $productInfo = [$newid, $newname, $newprice, $newdescription, $newcategory];
+    
+    foreach($productInfo as $info)
+    {
+        $info = mysqli_real_escape_string($connect, $info);
+    }
+
     $sql="UPDATE products SET name='$newname', price='$newprice', description='$newdescription', category_id='$newcategory', picture='$file_path' WHERE id='$newid'";
 
     if(mysqli_query($connect,$sql))

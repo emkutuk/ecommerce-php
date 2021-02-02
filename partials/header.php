@@ -1,5 +1,5 @@
 	<?php
-	include("partials/connect.php");
+	require "partials/connect.php";
 	?>
 
 	<!-- Header -->
@@ -48,6 +48,9 @@
 						<ul class="main-menu">
 							<li>
 								<a href="index.php">Home</a>
+							</li>
+							<li>
+								<a href="admin/adminlogin.php">Admin Login</a>
 							</li>
 						</ul>
 					</div>

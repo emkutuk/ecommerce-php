@@ -14,12 +14,11 @@ if(isset($_POST['reset']))
     if(UserExists())
     {
         $token = md5($email); 
-
+        $email = mysqli_real_escape_string($connect, $email);
         $sql="INSERT INTO tokens(username,token) VALUES('$email','$token')";
-        $connect->query($sql);
+        mysqli_query($connect, $sql);
             
-        //This will be changed later
-        $link = "localhost/ecommerce-php/resetpass.php?token=$token";
+        $link = "https://emkutuk.com/emrephp/resetpass.php?token=$token";
 
         $mail = new PHPMailer();
         $mail->isSMTP();
@@ -69,6 +68,8 @@ if(isset($_POST['approvepassword']))
         {
             //Updates password
             $passwordHash=password_hash($password,PASSWORD_DEFAULT);
+            $passwordHash = mysqli_real_escape_string($connect, $passwordHash);
+            $email = mysqli_real_escape_string($connect, $email);
             $sql="UPDATE customers SET password='$passwordHash' WHERE username='$email'";
             mysqli_query($connect,$sql);
 
@@ -100,12 +101,12 @@ function UserExists()
 {
     require "../partials/connect.php";
     $email=$_POST['email'];
-
+    $email = mysqli_real_escape_string($connect, $email);
     $sql = "SELECT username FROM customers WHERE username='$email'";
 
     try
     {
-        $results = $connect->query($sql);
+        $results = mysqli_query($connect, $sql);
         $final=$results->fetch_assoc();
 
         if($final == 0)

@@ -1,16 +1,13 @@
 <?php
-
 $host="localhost";
-$user="root";
-$password="";
-$dbname="phpstore";
+$user="u9902570_emrephp";
+$password="emrephp";
+$dbname="u9902570_phpsite";
 
-try
+$connect=mysqli_connect($host,$user,$password,$dbname);
+
+if ($connect->connect_error) 
 {
-    $connect=mysqli_connect($host,$user,$password,$dbname);
-}
-catch(Exception $e)
-{
-    echo $e->getMessage();
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

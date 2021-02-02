@@ -18,7 +18,7 @@ include("partials/head.php");
 				try{
 					//Due to website listing only one item, here I limit query to fetch only 1 row. That one product can be removed, updated or added again via Admin Panel
 					$sql = "SELECT * FROM products LIMIT 1";
-					$results = $connect->query($sql);
+					$results = mysqli_query($connect, $sql);
 					$final = $results->fetch_assoc();
 				}
 				catch(Exception $e)
@@ -66,7 +66,7 @@ include("partials/head.php");
 								//Categoies table and products table are connected to each other via category id(Foreign Key)
 								$category_id = $final['category_id'];		
 								$catsql="SELECT * FROM categories WHERE categories.id='$category_id'";
-								$catresults = $connect->query($catsql);
+								$catresults = mysqli_query($connect, $catsql);
 								$category = $catresults->fetch_assoc();
 
 								echo $category['name'];

@@ -5,3 +5,5 @@ js/* linguist-vendored
 vendor/* linguist-vendored
 admin/build/* linguist-vendored
 admin/plugins/* linguist-vendored
+admin/dist/* linguist-vendored
+admin/bower_components/* linguist-vendored
